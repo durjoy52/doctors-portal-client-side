@@ -23,7 +23,7 @@ const Footer = () => {
   </div>
   </div>
    <div className='my-12 text-center'>
-    <p>{`Copyright © ${new Date().getFullYear()} - All right reserved by ACME Industries Ltd`}</p>
+    <p>{`Copyright © ${new Date().getFullYear()} All Rights Reserved`}</p>
   </div>
 </footer>
     );
