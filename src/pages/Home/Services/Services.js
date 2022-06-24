@@ -1,4 +1,3 @@
-import React from "react";
 import cavity from "../../../assets/images/cavity.png";
 import fluoride from "../../../assets/images/fluoride.png";
 import whitening from "../../../assets/images/whitening.png";

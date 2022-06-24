@@ -3,7 +3,7 @@ import doctor from '.././../assets/images/doctor-small.png';
 import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 const MakeAppointment = () => {
     return (
-        <section style={{background:`url(${appointment})`}} className='flex justify-center items-center'>
+        <section style={{background:`url(${appointment})`,backgroundPosition:'center'}} className='flex justify-center items-center'>
             <div className='flex-1 hidden lg:flex justify-center '>
             <img className='mt-[-100px]' src={doctor} alt="" />
         </div> 
