@@ -1,9 +1,10 @@
 import { signOut } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { BiTime } from 'react-icons/bi';
+import { MdDateRange } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
-
 const MyAppointment = () => {
     const [appointments, setAppointments] = useState([]);
     const [user] = useAuthState(auth);
@@ -50,8 +51,8 @@ const navigate = useNavigate()
                             appointments.map((a, index) =><tr>
                                 <th>{index + 1}</th>
                                 <td>{a.patientName}</td>
-                                <td>{a.date}</td>
-                                <td>{a.slot}</td>
+                                <td><MdDateRange/>{a.date}</td>
+                                <td><BiTime/>{a.slot}</td>
                                 <td>{a.treatment}</td>
                             </tr>)
                         }

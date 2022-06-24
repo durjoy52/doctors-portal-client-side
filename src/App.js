@@ -21,8 +21,9 @@ import Navbar from "./pages/Shared/Navbar";
 function App() {
   const [dark,setDark] =useState(false)
   return (
-    <div className=" mx-auto px-12" data-theme={dark ? 'dark' : 'light'}>
+    <div data-theme={dark ? 'dark' : 'light'}>
       <Navbar dark={dark} setDark={setDark} />
+      <div className="px-2">
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/appointment" element={<RequireAuth>
@@ -42,6 +43,7 @@ function App() {
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route path="/login" element={<Login></Login>}></Route>
       </Routes>
+      </div>
       <ToastContainer />
     </div>
   );

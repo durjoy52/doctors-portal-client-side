@@ -1,5 +1,7 @@
+import { BiUser } from 'react-icons/bi';
+import { HiUserRemove } from 'react-icons/hi';
+import { MdAdminPanelSettings } from 'react-icons/md';
 import { toast } from 'react-toastify';
-
 const UserRow = ({ user, refetch,index }) => {
     const { email, role } = user;
     const makeAdmin = () => {
@@ -25,9 +27,9 @@ const UserRow = ({ user, refetch,index }) => {
     return (
         <tr>
             <th>{index+1}</th>
-            <td>{email}</td>
-            <td>{role !== 'admin' && <button onClick={makeAdmin} className="btn btn-xs">Make Admin</button>}</td>
-            <td><button className="btn btn-xs">Remove User</button></td>
+            <td className='flex'><BiUser fontSize={20}/>{email}</td>
+            <td><MdAdminPanelSettings/>{role !== 'admin' && <button onClick={makeAdmin} className="btn btn-xs">Make Admin</button>}</td>
+            <td className='flex'><HiUserRemove fontSize={20}/><button className="btn btn-xs">Remove User</button></td>
         </tr>
     );
 };
