@@ -1,5 +1,5 @@
 import { signOut } from 'firebase/auth';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
@@ -10,7 +10,7 @@ const MyAppointment = () => {
 const navigate = useNavigate()
     useEffect(() => {
         if (user) {
-            fetch(`http://localhost:5000/booking?patient=${user.email}`,{
+            fetch(`https://floating-fjord-09767.herokuapp.com/booking?patient=${user.email}`,{
                 method:'GET',
                 headers:{
                     'authorization': `Bearer ${localStorage.getItem('accessToken')}`
@@ -34,8 +34,8 @@ const navigate = useNavigate()
     return (
         <div>
             <h2>My Appointments: {appointments?.length}</h2>
-            <div class="overflow-x-auto">
-                <table class="table w-full">
+            <div className="overflow-x-auto">
+                <table className="table w-full">
                     <thead>
                         <tr>
                             <th></th>
