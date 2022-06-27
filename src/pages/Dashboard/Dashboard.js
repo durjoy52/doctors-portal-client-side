@@ -2,12 +2,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, Outlet } from 'react-router-dom';
 import auth from '../../firebase.init';
 import useAdmin from '../../hooks/useAdmin';
+import Loading from '../Shared/Loading';
 
 const Dashboard = () => {
   const [user] = useAuthState(auth)
   const [admin,adminLoading] = useAdmin(user)
   if(adminLoading){
-    return <adminLoading/>
+    return <Loading/>
   }
     return (
         <div className="drawer drawer-mobile">
@@ -18,7 +19,7 @@ const Dashboard = () => {
     <Outlet/>
   </div> 
   <div className="drawer-side">
-    <label for="my-drawer-2" className="drawer-overlay"></label> 
+    <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
     <ul className="menu p-4 overflow-y-auto w-48 bg-base-100 text-base-content">
       {/* <!-- Sidebar content here --> */}
       <li><Link to='/dashboard'>myAppointment</Link></li>

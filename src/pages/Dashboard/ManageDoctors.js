@@ -1,19 +1,36 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
+import { toast } from 'react-toastify';
 import Loading from "../Shared/Loading";
 import DeleteConfirmModal from "./DeleteConfirmModal";
 import DoctorRow from "./DoctorRow";
-
 const ManageDoctors = () => {
     const[deletingDoctor,setDeletingDoctor] = useState(null)
-    console.log(deletingDoctor)
   const { data, isLoading,refetch } = useQuery("doctors", () =>
-    fetch("http://localhost:5000/doctor", {
+    fetch("https://floating-fjord-09767.herokuapp.com/doctor", {
+      method:'GET',
       headers: {
         authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
-    }).then((res) => res.json())
+    })
+    .then((res) => res.json())
   );
+  const handleDelete = email =>{
+    fetch(`https://floating-fjord-09767.herokuapp.com/doctor/${email}`,{
+        method:'DELETE',
+        headers:{
+            authorization: `Bearer ${localStorage.getItem("accessToken")}`
+        }
+    })
+    .then(res=>res.json())
+    .then(data=>{
+        console.log(data)
+            if(data.deletedCount > 0){
+                refetch()
+                toast.success(`Doctor is deleted.`)
+            }
+    })
+}
   if (isLoading) {
     return <Loading />;
   }
@@ -39,7 +56,7 @@ const ManageDoctors = () => {
         </table>
       </div>
       {
-          deletingDoctor && <DeleteConfirmModal deletingDoctor={deletingDoctor} refetch={refetch}/>
+          deletingDoctor && <DeleteConfirmModal deleting={deletingDoctor} handleDelete={handleDelete}/>
       }
     </div>
   );

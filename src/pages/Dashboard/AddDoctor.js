@@ -11,7 +11,7 @@ const AddDoctor = () => {
   } = useForm();
 
   const { data: services, isLoading } = useQuery("services", () =>
-    fetch("http://localhost:5000/service",{
+    fetch("https://floating-fjord-09767.herokuapp.com/service",{
       method:'GET',
       headers:{
         'authorization':`Bearer ${localStorage.getItem('accessToken')}`
@@ -39,7 +39,7 @@ const AddDoctor = () => {
           specialty:data.specialty,
           img:img
         }
-        fetch('http://localhost:5000/doctor',{
+        fetch('https://floating-fjord-09767.herokuapp.com/doctor',{
           method:'POST',
           headers:{
             'content-type':'application/json',

@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { useEffect, useState } from "react";
+import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../firebase.init";
 import useToken from "../../hooks/useToken";
 import Loading from "../Shared/Loading";
 const Login = () => {
   const location = useLocation()
   const navigate = useNavigate()
+  const [sendPasswordResetEmail] = useSendPasswordResetEmail(
+    auth
+  );
   const from = location.state?.from?.pathname || '/'
   const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [
@@ -16,10 +20,12 @@ const Login = () => {
     loading,
     error,
   ] = useSignInWithEmailAndPassword(auth);
+  const [email,setEmail] = useState('')
 const [token] = useToken(user || gUser)
-  const { register, formState: { errors }, handleSubmit } = useForm();
+  const { register, formState: { errors }, handleSubmit,reset } = useForm();
   const onSubmit = (data) => {
     console.log(data)
+    setEmail(data.email)
     signInWithEmailAndPassword(data.email,data.password)
   };
   useEffect(()=>{
@@ -89,9 +95,15 @@ const [token] = useToken(user || gUser)
                         {errors.password?.type === 'minLength' && <span className="label-text-alt text-red-500">{errors.password.message}</span>}
                     </label>
                 </div>
-
                 {signInError}
                 <input className='btn w-full max-w-xs text-white' type="submit" value="Login" />
+                {
+                error?.message.includes('Firebase: Error (auth/wrong-password)') && 
+            <p className="text-sm">Forget password?<span className="btn btn-link btn-active btn-xs" onClick={async()=>{
+                await sendPasswordResetEmail(email)
+                toast('sent Email',{id:'sent'})
+            }}>Reset password</span></p>
+            }
             </form>
             <p><small>New to Doctors Portal <Link className='text-primary' to="/signup">Create New Account</Link></small></p>
             <div className="divider">OR</div>
